@@ -20,7 +20,6 @@ def orders():
 def login():
     if request.method == 'POST':
         user = request.json['username'], request.json["password"]
-        user.save
         return user
     return jsonify({"message": "User not found"})
 
