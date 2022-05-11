@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, url_for, redirect
-from models.model import Order, orders_db
+from models.model import Order, User, orders_db, user_db
 
 
 order_blueprint = Blueprint('Order_blueprint', __name__)
@@ -7,6 +7,7 @@ order_blueprint = Blueprint('Order_blueprint', __name__)
 @order_blueprint.route('/orders', methods=["POST", "GET"])
 def orders():
     if request.method == "POST":
+ 
         new_order = Order(request.json["name"], request.json["price"])
         orders_db.append(new_order)
         orders_list = [{"name": item.name, "price": item.price} for item in orders_db]
@@ -16,16 +17,22 @@ def orders():
         data = jsonify({"menu": orders_list}), 200
     return data
 
+@order_blueprint.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == "POST":
+        if request.json["username"] in user_db:
+            return jsonify({"message":"exits"})
+        else:
+            new_user = User(request.json["username"], request.json["password"])
+            user_db.append(new_user)
+        return jsonify({"message":"User has been registered"})
+
 @order_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        user = request.json['username'], request.json["password"]
-        return user
-    return jsonify({"message": "User not found"})
+    if request.method == "POST":
+        if request.json in user_db:
+            return jsonify({"message":"User logged in"})
+        else:
+            print(user_db,'hhhhhhhhh')
+            return jsonify({"message":"User provided wrong credentials"})
 
-@order_blueprint.route('/orders/<string:name>', methods=['GET'])
-def get_order(name):
-    if request.method == "GET":
-        orders_list = Order(request.json[name])
-        return jsonify(orders_list)
-    return jsonify({'message': 'Order not found'}), 200

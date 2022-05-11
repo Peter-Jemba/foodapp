@@ -65,4 +65,5 @@ def get_food_in_order(name):
 def home():
     return "Hello, world!"
 
-app.run(port=5000, debug=True)
+if __name__ =='__app__':
+    app.run(debug=True)

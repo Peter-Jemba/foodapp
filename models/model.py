@@ -12,7 +12,7 @@ class Order:
 
     @price.setter
     def price(self, price):
-        if price != price:
+        if price < 0: # less than zero
             ValueError("Price must be equal to price on the order")
         self._price = price
 
@@ -28,3 +28,14 @@ order4 = Order("Shawarma", 10.00)
 orders_db.append(order4)
 order5 = Order("Flies", 9.00)
 orders_db.append(order5)
+
+class User:
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+user_db = []
+user1 = User("jones", "asdf")
+user_db.append(user1.__dict__)
+
+
