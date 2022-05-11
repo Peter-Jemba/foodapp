@@ -33,6 +33,5 @@ def login():
         if request.json in user_db:
             return jsonify({"message":"User logged in"})
         else:
-            print(user_db,'hhhhhhhhh')
             return jsonify({"message":"User provided wrong credentials"})
 
