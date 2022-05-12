@@ -20,8 +20,8 @@ def menus():
 @menu_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
-        if request.json["username"] in user_db:
-            return jsonify({"message":"exits"})
+        if request.json in user_db:
+            return jsonify({"message":"Username already registered"})
         else:
             new_user = User(request.json["username"], request.json["password"])
             user_db.append(new_user)

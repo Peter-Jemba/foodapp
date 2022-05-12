@@ -37,5 +37,9 @@ class User:
 user_db = []
 user1 = User("jones", "asdf")
 user_db.append(user1.__dict__)
+user2 = User("mike", "asdf")
+user_db.append(user2.__dict__)
+user3 = User("tim", "asdf")
+user_db.append(user3.__dict__)
 
 
