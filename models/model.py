@@ -1,6 +1,6 @@
 #Creating models for the foodapp database
 
-class Order:
+class Menu:
 
     def __init__(self, name, price):
         self.name = name
@@ -17,17 +17,17 @@ class Order:
         self._price = price
 
 
-orders_db = []
-order1 = Order("Rice", 12.00)
-orders_db.append(order1)
-order2 = Order("Steak", 15.00)
-orders_db.append(order2)
-order3 = Order("Hot dog", 5.00)
-orders_db.append(order3)
-order4 = Order("Shawarma", 10.00)
-orders_db.append(order4)
-order5 = Order("Flies", 9.00)
-orders_db.append(order5)
+menus_db = []
+menu1 = Menu("Rice", 12.00)
+menus_db.append(menu1)
+menu2 = Menu("Steak", 15.00)
+menus_db.append(menu2)
+menu3 = Menu("Hot dog", 5.00)
+menus_db.append(menu3)
+menu4 = Menu("Shawarma", 10.00)
+menus_db.append(menu4)
+menu5 = Menu("Flies", 9.00)
+menus_db.append(menu5)
 
 class User:
     def __init__(self, username, password):

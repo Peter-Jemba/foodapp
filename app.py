@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, request
-from views.views import order_blueprint
+from views.views import menu_blueprint
 
 app = Flask(__name__)
-app.register_blueprint(order_blueprint)
+app.register_blueprint(menu_blueprint)
 
-orders = [
+menus = [
     {
         'name': 'Pilata',
         'foods': [
@@ -16,49 +16,49 @@ orders = [
     }
 ]
 
-#POST /order data: {name}
-@app.route('/order', methods=['POST'])
-def create_order():
+#POST /menu data: {name}
+@app.route('/menu', methods=['POST'])
+def create_menu():
     request_data = request.get_json()
-    new_order = {
+    new_menu = {
         'name': request_data['name'],
         'foods': []
     }
-    orders.append(new_order)
-    return jsonify(new_order), 201
+    menus.append(new_menu)
+    return jsonify(new_menu), 201
 
-#GET /order/<string:name>
-@app.route('/order/<string:name>')
+#GET /menu/<string:name>
+@app.route('/menu/<string:name>')
 def get_order(name):
-    for order in orders:
-        if order['name'] == name:
-            return jsonify(order)
+    for menu in menus:
+        if menu['name'] == name:
+            return jsonify(menu)
     return jsonify({'message': 'Order not found'}), 200
 
-#GET /store
-@app.route('/order')
-def get_orders():
-    return jsonify({'orders': orders}), 200
+#GET /menu
+@app.route('/menu')
+def get_menus():
+    return jsonify({'menus': menus}), 200
 
-#POST /order/<string:name>/food {name:, price:}
-@app.route('/order/<string:name>/food', methods=['POST'])
-def create_food_in_order(name):
+#POST /menu/<string:name>/food {name:, price:}
+@app.route('/menu/<string:name>/food', methods=['POST'])
+def create_food_in_menu(name):
     request_data = request.get_json()
-    for order in orders:
-        if order['name'] == name:
-            new_food ={
+    for menu in menus:
+        if menu['name'] == name:
+            new_menu ={
                 'name': request_data['name'],
                 'price': request_data['price']
             }
-            order['foods'].append(new_food)
-            return jsonify(new_food)
+            menu['foods'].append(new_menu)
+            return jsonify(new_menu)
 
-#GET /order/<string:name>/food
-@app.route('/order/<string:name>/food')
-def get_food_in_order(name):
-    for order in orders:
-        if order['name'] == name:
-            return jsonify({'foods': order['foods']})
+#GET /menu/<string:name>/food
+@app.route('/menu/<string:name>/food')
+def get_food_in_menu(name):
+    for menu in menus:
+        if menu['name'] == name:
+            return jsonify({'foods': menu['foods']})
     return jsonify({'message': 'Order not found'})
 
 @app.route('/')
@@ -66,4 +66,4 @@ def home():
     return "Hello, world!"
 
 if __name__ =='__app__':
-    app.run(debug=True)
+    app.run(port=5000, debug=True)
